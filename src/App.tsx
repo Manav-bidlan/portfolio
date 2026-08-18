@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import {
   ArrowUpRight,
   BrainCircuit,
@@ -124,9 +125,9 @@ function App() {
         <section id="work" className="section-wrap section-space">
           <div className="section-heading reveal"><div><p className="eyebrow">SELECTED WORK <span>／ PROJECTS</span></p><h2>Built with intent.</h2></div><p className="section-note">A few things I've made while exploring the space between data, models, and useful software.</p></div>
           <div className="project-grid">{projects.map((project) => {
-  const inner = project.status === 'empty' ? <EmptyProjectArt number={project.number} /> : <><div className={`project-art ${project.tone}`}>{project.image ? <img className="project-image" src={project.image} alt="" /> : <><div className="art-lines" /><div className="art-orb" /></>}<span className="project-number">{project.number}</span>{project.status === 'in-progress' && <span className="status-badge">In Progress</span>}<ArrowUpRight className="project-arrow" size={20} /></div><div className="project-content"><div><h3>{project.title}</h3><p>{project.description}</p></div><div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></>;
-  return project.href ? <a className="project-card project-card-link reveal" href={project.href} target="_blank" rel="noopener noreferrer" key={project.number}>{inner}</a> : <article className="project-card reveal" key={project.number}>{inner}</article>;
-})}</div>
+            const inner = project.status === 'empty' ? <EmptyProjectArt number={project.number} /> : <><div className={`project-art ${project.tone}`}>{project.image ? <img className="project-image" src={project.image} alt="" /> : <><div className="art-lines" /><div className="art-orb" /></>}<span className="project-number">{project.number}</span>{project.status === 'in-progress' && <span className="status-badge">In Progress</span>}<ArrowUpRight className="project-arrow" size={20} /></div><div className="project-content"><div><h3>{project.title}</h3><p>{project.description}</p></div><div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div></>;
+            return project.href ? <a className="project-card project-card-link reveal" href={project.href} target="_blank" rel="noopener noreferrer" key={project.number}>{inner}</a> : <article className="project-card reveal" key={project.number}>{inner}</article>;
+          })}</div>
         </section>
 
         <section id="about" className="section-wrap section-space about-section"><div className="about-layout"><div className="reveal"><p className="eyebrow">A LITTLE ABOUT ME</p><h2>Curious by nature.<br /><span className="gradient-text">Precise by practice.</span></h2><p className="about-copy">I'm a B.Tech Computer Science student focused on Machine Learning and AI. I learn best by building — taking an idea, understanding the problem behind it, and working through it until something works. So far that's meant a content-based movie recommender, a sentiment analysis model, and a facial recognition project I'm currently building.</p><p className="about-copy">I recently completed Andrew Ng's Machine Learning Specialization, which gave me a stronger foundation to keep building on. I'm not trying to know everything upfront — I'm trying to understand enough of each problem to make something useful, then learn the rest along the way. Right now that means computer vision. Next it might be something else entirely.</p><a className="text-link" href="#contact" onClick={(e) => { e.preventDefault(); openForm(); }}>Let's build something meaningful <ArrowUpRight size={15} /></a></div><div className="stats-grid reveal reveal-delay"><div className="stat-card"><strong>2</strong><span>Projects Completed</span></div><div className="stat-card"><strong>1</strong><span>ML Specialization</span></div><div className="stat-card"><strong className="stat-text">B.Tech</strong><span>CSE Student</span></div><div className="stat-card stat-card-accent"><Code2 size={21} /><span>Always Learning</span></div></div></div></section>
@@ -143,10 +144,51 @@ function App() {
                 {submitted ? (
                   <div className="contact-success"><Check size={18} /><span>Thanks — your message is on its way. I'll reply soon.</span></div>
                 ) : (
-                  <form className="form-stack" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
-                    <div className="form-field"><input type="text" required placeholder="Your name" autoComplete="name" /></div>
-                    <div className="form-field"><input type="email" required placeholder="Email address" autoComplete="email" /></div>
-                    <div className="form-field"><textarea required rows={4} placeholder="Tell me about your idea or question"></textarea></div>
+                  <form
+                    className="form-stack"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+
+                      const form = e.currentTarget;
+
+                      try {
+                        await emailjs.sendForm(
+                          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                          form,
+                          {
+                            publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+                          }
+                        );
+
+                        setSubmitted(true);
+                        form.reset();
+                      } catch (error) {
+                        console.error('EmailJS error:', error);
+                        alert('Failed to send message. Please try again.');
+                      }
+                    }}
+                  > 
+                    <div className="form-field"><input
+                    type="text"
+                    name="from_name"
+                    required
+                    placeholder="Your name"
+                    autoComplete="name"
+                  /></div>
+                    <div className="form-field"><input
+                      type="email"
+                      name="from_email"
+                      required
+                      placeholder="Email address"
+                      autoComplete="email"
+                    /></div>
+                    <div className="form-field"><textarea
+                      name="message"
+                      required
+                      rows={4}
+                      placeholder="Tell me about your idea or question"
+                    ></textarea></div>
                     <button type="submit" className="button button-primary form-submit">Send message <ArrowUpRight size={16} /></button>
                   </form>
                 )}
