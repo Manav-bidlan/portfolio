@@ -50,7 +50,7 @@ const projects: Project[] = [
   },
   {
     number: '03',
-    title: 'Facial Expression Recognition AI',
+    title: 'Facial Expression Recognition',
     description: 'A real-time facial expression recognition system that analyzes uploaded photos and webcam snapshots using EfficientNetV2, fine-tuned on RAF-DB.',
     tags: ['Python', 'EfficientNetV2', 'OpenCV', 'Streamlit'],
     tone: 'project-amber',
