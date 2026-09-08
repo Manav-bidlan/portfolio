@@ -50,11 +50,12 @@ const projects: Project[] = [
   },
   {
     number: '03',
-    title: 'Facial Recognition System',
-    description: 'An ongoing computer vision project focused on detecting and recognizing faces from images or video.',
-    tags: ['Python', 'OpenCV', 'TensorFlow'],
+    title: 'Facial Expression Recognition AI',
+    description: 'A real-time facial expression recognition system that analyzes uploaded photos and webcam snapshots using EfficientNetV2, fine-tuned on RAF-DB.',
+    tags: ['Python', 'EfficientNetV2', 'OpenCV', 'Streamlit'],
     tone: 'project-amber',
-    status: 'in-progress',
+    status: 'completed',
+    href: 'https://facial-expression-recognition-manavbidlan.streamlit.app/',
   },
   { number: '04', title: '', description: '', tags: [], tone: 'project-rose', status: 'empty' },
   { number: '05', title: '', description: '', tags: [], tone: 'project-slate', status: 'empty' },
@@ -130,7 +131,7 @@ function App() {
           })}</div>
         </section>
 
-        <section id="about" className="section-wrap section-space about-section"><div className="about-layout"><div className="reveal"><p className="eyebrow">A LITTLE ABOUT ME</p><h2>Curious by nature.<br /><span className="gradient-text">Precise by practice.</span></h2><p className="about-copy">I'm a B.Tech Computer Science student focused on Machine Learning and AI. I learn best by building — taking an idea, understanding the problem behind it, and working through it until something works. So far that's meant a content-based movie recommender, a sentiment analysis model, and a facial recognition project I'm currently building.</p><p className="about-copy">I recently completed Andrew Ng's Machine Learning Specialization, which gave me a stronger foundation to keep building on. I'm not trying to know everything upfront — I'm trying to understand enough of each problem to make something useful, then learn the rest along the way. Right now that means computer vision. Next it might be something else entirely.</p><a className="text-link" href="#contact" onClick={(e) => { e.preventDefault(); openForm(); }}>Let's build something meaningful <ArrowUpRight size={15} /></a></div><div className="stats-grid reveal reveal-delay"><div className="stat-card"><strong>2</strong><span>Projects Completed</span></div><div className="stat-card"><strong>1</strong><span>ML Specialization</span></div><div className="stat-card"><strong className="stat-text">B.Tech</strong><span>CSE Student</span></div><div className="stat-card stat-card-accent"><Code2 size={21} /><span>Always Learning</span></div></div></div></section>
+        <section id="about" className="section-wrap section-space about-section"><div className="about-layout"><div className="reveal"><p className="eyebrow">A LITTLE ABOUT ME</p><h2>Curious by nature.<br /><span className="gradient-text">Precise by practice.</span></h2><p className="about-copy">I'm a B.Tech Computer Science student focused on Machine Learning and AI. I learn best by building — taking an idea, understanding the problem behind it, and working through it until something works. So far that's meant a content-based movie recommender, a sentiment analysis model, and a facial expression recognition system built with EfficientNetV2 and fine-tuned on RAF-DB.</p><p className="about-copy">I recently completed Andrew Ng's Machine Learning Specialization, which gave me a stronger foundation to keep building on. I'm not trying to know everything upfront — I'm trying to understand enough of each problem to make something useful, then learn the rest along the way. Right now that means computer vision. Next it might be something else entirely.</p><a className="text-link" href="#contact" onClick={(e) => { e.preventDefault(); openForm(); }}>Let's build something meaningful <ArrowUpRight size={15} /></a></div><div className="stats-grid reveal reveal-delay"><div className="stat-card"><strong>2</strong><span>Projects Completed</span></div><div className="stat-card"><strong>1</strong><span>ML Specialization</span></div><div className="stat-card"><strong className="stat-text">B.Tech</strong><span>CSE Student</span></div><div className="stat-card stat-card-accent"><Code2 size={21} /><span>Always Learning</span></div></div></div></section>
 
         <section id="stack" className="section-wrap section-space stack-section"><div className="section-heading reveal"><div><p className="eyebrow">THE TOOLKIT</p><h2>My working stack.</h2></div><p className="section-note">The tools change. The principles stay: understand the problem, build something, learn the rest.</p></div><div className="capability-grid">{capabilities.map((capability, index) => <div className="capability reveal" key={capability.label}><span className="capability-index">0{index + 1}</span><h3>{capability.label}</h3><ul>{capability.items.map((item) => <li key={item}><Check size={14} />{item}</li>)}</ul></div>)}</div></section>
 
